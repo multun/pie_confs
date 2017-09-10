@@ -4,7 +4,12 @@
 # Should you change your keyboard layout some time, delete
 # this file and re-run i3-config-wizard(1).
 #
-exec --no-startup-id feh --bg-fill ~/afs/images/background.jpg
+
+set $bg_img ~/afs/images/background.png
+
+exec --no-startup-id feh --bg-fill $bg_img
+exec --no-startup-id setxkbmap fr oss
+exec --no-startup-id redshift -o -l 0:0 -m randr -t 3700:3700
 
 
 hide_edge_borders both
@@ -36,7 +41,7 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec xfce4-terminal
-bindsym $mod+l exec i3lock
+bindsym $mod+l exec i3lock -f
 bindsym $mod+b exec --no-startup-id firefox
 
 # kill focused window
