@@ -5,16 +5,6 @@
 # this file and re-run i3-config-wizard(1).
 #
 
-set $bg_img ~/afs/images/background.png
-
-exec --no-startup-id feh --bg-fill $bg_img
-exec --no-startup-id setxkbmap fr oss
-exec --no-startup-id redshift -o -l 0:0 -m randr -t 3700:3700
-
-
-hide_edge_borders both
-new_window pixel 1
-
 # i3 config file (v4)
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
@@ -23,11 +13,11 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-#font pango:monospace 8
+font pango:xos4 Terminus 10px
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:xos4 Terminus 8
+#font pango:DejaVu Sans Mono 8
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -40,25 +30,31 @@ font pango:xos4 Terminus 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec xfce4-terminal
-bindsym $mod+l exec i3lock -f
-bindsym $mod+b exec --no-startup-id firefox
+bindsym $mod+Return exec myxcwd xfce4-terminal --working-directory={}
+bindsym $mod+Shift+Return exec emacsclient -c -n -e '(switch-to-buffer nil)'
+bindsym $mod+b exec firefox-developer-edition
+bindsym $mod+Control+l exec epi3lock
+bindsym $mod+c exec xdotool click 1
+bindsym $mod+Shift+c exec xdotool click 3
+bindsym $mod+Control+k exec keepassx2
 
 # kill focused window
-bindsym $mod+Shift+A kill
+bindsym $mod+Shift+a kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec dmenu_run -fn "-xos4-terminus-medium-r-*-*-12-*"
+
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-#bindsym $mod+j focus left
-#bindsym $mod+k focus down
-#bindsym $mod+l focus up
-#bindsym $mod+semicolon focus right
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+m focus right
+
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -70,7 +66,7 @@ bindsym $mod+Right focus right
 bindsym $mod+Shift+j move left
 bindsym $mod+Shift+k move down
 bindsym $mod+Shift+l move up
-bindsym $mod+Shift+colon move right
+bindsym $mod+Shift+m move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -129,7 +125,7 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+#bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
@@ -146,7 +142,7 @@ mode "resize" {
         bindsym j resize shrink width 10 px or 10 ppt
         bindsym k resize grow height 10 px or 10 ppt
         bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym m resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -164,7 +160,36 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        position top
-        status_command i3status
-        font pango:xos4 Terminus 8
+    status_command     i3status
+    # tray_output primary #fucks up the tray?
+    position           top
+    workspace_buttons  yes
+    colors {
+          separator           #dc322f
+          background          #002b36
+          statusline          #268bd2
+          focused_workspace   #fdf6e3 #002b36 #fdf6e3 
+          active_workspace    #fdf6e3 #6c71c4 #fdf6e3
+          inactive_workspace  #073642 #657b83 #073642
+          urgent_workspace    #d33682 #d33682 #fdf6e3
+    }
 }
+
+client.focused		#002b36 #002b36 #fdf6e3 #002b36
+client.focused_inactive	#073642 #073642 #eee8d5 #6c71c4
+client.unfocused	#073642 #073642 #93a1a1 #586e75
+client.urgent		#d33682 #d33682 #fdf63e #dc322f
+
+for_window [class=".*"] border pixel 1
+hide_edge_borders vertical
+exec --no-startup-id redshift -o -l 0:0 -m randr -t 3700:3700
+exec --no-startup-id feh --no-fehbg --bg-center ~/Images/boring_bg_bepo.png
+
+set $lightstep 4
+bindcode 232 exec light -U $lightstep
+bindcode 233 exec light -A $lightstep
+
+set $soundstep 2
+set $pasink alsa_output.pci-0000_00_1b.0.analog-stereo
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume $pasink -$soundstep%
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $pasink +$soundstep%
