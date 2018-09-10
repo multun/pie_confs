@@ -1,0 +1,10 @@
+. ~/.aliases
+
+# .zshrc.pre contains NOTITLE=1 so that the
+# default title hooks aren't added
+
+cwd_title () {
+     set_title "$PWD"
+}
+
+add-zsh-hook precmd cwd_title
