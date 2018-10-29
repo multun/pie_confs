@@ -24,6 +24,7 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
+ '(column-number-mode t)
  '(custom-enabled-themes (quote (tsdh-dark)))
  '(inhibit-startup-screen t)
  '(package-selected-packages
