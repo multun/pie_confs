@@ -88,3 +88,7 @@
 ;; enable rainbow delimiters (highlight braces)
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
+(defun insert-nbsp () (interactive)
+       (insert " "))
+(global-set-key (kbd "M-SPC") 'insert-nbsp)
