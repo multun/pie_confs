@@ -27,6 +27,7 @@
  '(column-number-mode t)
  '(custom-enabled-themes (quote (tsdh-dark)))
  '(inhibit-startup-screen t)
+ '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
     (yaml-mode flycheck-irony irony ## flycheck clang-format rainbow-delimiters))))
