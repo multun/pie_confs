@@ -27,7 +27,10 @@
  '(column-number-mode t)
  '(custom-enabled-themes (quote (tsdh-dark)))
  '(inhibit-startup-screen t)
+ '(scroll-bar-mode nil)
  '(menu-bar-mode nil)
+ '(show-paren-mode t)
+ '(tool-bar-mode nil)
  '(package-selected-packages
    (quote
     (yaml-mode flycheck-irony irony ## flycheck clang-format rainbow-delimiters))))
@@ -47,9 +50,6 @@
 (add-to-list 'default-frame-alist
              '(font . "xos4 Terminess Powerline-8"))
 
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(menu-bar-mode -1)
 
 ;; enable rainbow delimiters (highlight braces)
 (require 'rainbow-delimiters)
