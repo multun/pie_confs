@@ -41,8 +41,7 @@
 (setq-default indent-tabs-mode nil)
 
 (add-to-list 'default-frame-alist
-             '(font . "xos4 Terminess Powerline-8"))
-
+             '(font . "Terminus"))
 
 ;; enable rainbow delimiters (highlight braces)
 (require 'rainbow-delimiters)
@@ -81,7 +80,6 @@
 
 (setq frame-title-format '("%f"))
 
-(set-frame-font "xos4 Terminess Powerline" nil t)
 (defun my-csharp-mode-hook ()
   (auto-complete-mode t)
   (setq tab-width 4)
