@@ -33,14 +33,7 @@
  '(tool-bar-mode nil)
  '(package-selected-packages
    (quote
-    (yaml-mode flycheck-irony irony ## flycheck clang-format rainbow-delimiters))))
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+    (flycheck-pyflakes multiple-cursors auto-complete csharp-mode yaml-mode flycheck-irony irony ## flycheck clang-format rainbow-delimiters))))
 
 (setq c-default-style "bsd"
       c-basic-offset 4)
@@ -58,7 +51,9 @@
 ;; CODING STYLE GLOBAL
 ;; warn on weird spacing / tabs
 (require 'whitespace)
-(setq whitespace-style '(face empty tabs lines-tail trailing))
+
+;; lines-tail
+(setq whitespace-style '(face empty tabs trailing))
 (global-whitespace-mode t)
 
 (require 'clang-format)
@@ -66,13 +61,16 @@
 (global-set-key (kbd "C-c u") 'clang-format-buffer)
 
 ;; # LANGUAGES
-(show-paren-mode 1)
-
 (add-hook 'c++-mode-hook 'irony-mode)
 (add-hook 'c-mode-hook 'irony-mode)
 
 (add-hook 'c++-mode-hook 'flycheck-mode)
 (add-hook 'c-mode-hook 'flycheck-mode)
+
+(setq flycheck-python-flake8-executable "python3")
+(setq flycheck-python-pyliny-executable "python3")
+(setq flycheck-python-pycompile-executable "python3")
+(add-hook 'python-mode-hook 'flycheck-mode)
 
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
@@ -84,10 +82,23 @@
 (setq frame-title-format '("%f"))
 
 (set-frame-font "xos4 Terminess Powerline" nil t)
+(defun my-csharp-mode-hook ()
+  (auto-complete-mode t)
+  (setq tab-width 4)
+  (setq indent-tabs-mode t)
+  (setq whitespace-style '(face tabs trailing))
+  (hs-minor-mode t)
+  (electric-pair-mode 1)       ;; Emacs 24
+  (electric-pair-local-mode 1)) ;; Emacs 25
+
+(add-hook 'csharp-mode-hook 'my-csharp-mode-hook)
 
 ;; enable rainbow delimiters (highlight braces)
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
+(require 'multiple-cursors)
+(global-set-key (kbd "C-c RET") 'mc/edit-lines)
 
 (defun insert-nbsp () (interactive)
        (insert " "))
