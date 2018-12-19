@@ -161,3 +161,7 @@ nth () {
 jcurl() {
     curl --header "Content-Type: application/json" "$@"
 }
+
+alias pip=pip3
+alias python=python3
+alias sl=ls
